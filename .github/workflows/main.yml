@@ -32,7 +32,7 @@ jobs:
         cache: maven
 
     - name: Build with Maven Wrapper
-      run: ./mvn clean package
+      run: mvn clean package
     - name: Analyze with SonarQube
       uses: SonarSource/sonarqube-scan-action@7295e71c9583053f5bf40e9d4068a0c974603ec8
       env:
