@@ -65,7 +65,6 @@ jobs:
         aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }} # optional
         # AWS Secret Access Key. Required if aws-access-key-id is provided.
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }} # optional
-      run: aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/k1j5h2w6
 
     - name: Build, tag, and push image to Amazon ECR
       id: build-image
@@ -74,9 +73,7 @@ jobs:
         ECR_REPOSITORY: account
         IMAGE_TAG: ${{ github.ref_name }}
       run: |
-        # Build a docker container and
-        # push it to ECR so that it can
-        # be deployed to ECS.
+        aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/k1j5h2w6
         docker build -t $ECR_REPOSITORY:IMAGE_TAG .
         docker tag $ECR_REPOSITORY:$IMAGE_TAG $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
         docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
