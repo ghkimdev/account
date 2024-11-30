@@ -8,8 +8,10 @@ on:
     tags:
       - 'v*'
 
-permissions:
-  pull-requests: read # allows SonarQube to decorate PRs with analysis results
+env:
+  ECR_REGISTRY: public.ecr.aws/k1j5h2w6
+  ECR_REPOSITORY: account
+  IMAGE_TAG: ${{ github.ref_name }}
 
 jobs:
   deploy:
@@ -67,10 +69,6 @@ jobs:
 
     - name: Build, tag, and push image to Amazon ECR
       id: build-image
-      env:
-        ECR_REGISTRY: public.ecr.aws/k1j5h2w6
-        ECR_REPOSITORY: account
-        IMAGE_TAG: ${{ github.ref_name }}
       run: |
         aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/k1j5h2w6
         docker build -t $ECR_REPOSITORY:$IMAGE_TAG .
@@ -89,6 +87,7 @@ jobs:
         severity: HIGH,CRITICAL
         format: table
         output: image.html
+
 
     - name: Update Image Tag Values
       run: |
