@@ -42,7 +42,7 @@ jobs:
       with:
         args:
           -Dsonar.projectKey=account
-          -Dsonar.sources= ./src
+          -Dsonar.sources=src
     - name: Kubectl tool installer
       uses: Azure/setup-kubectl@v4.0.0
       with:
