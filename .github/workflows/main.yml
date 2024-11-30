@@ -42,7 +42,7 @@ jobs:
         # Additional arguments to the sonar-scanner
         args: # optional
           -Dsonar.projectName=account
-          -Dsonar.projentKey=account
+          -Dsonar.projectKey=account
           -Dsonar.java.binaries=target
         projectBaseDir: . # optional, default is .
       env:
