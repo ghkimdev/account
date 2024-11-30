@@ -33,16 +33,21 @@ jobs:
 
     - name: Build with Maven Wrapper
       run: mvn clean package
-    - name: Analyze with SonarQube
-      uses: SonarSource/sonarqube-scan-action@7295e71c9583053f5bf40e9d4068a0c974603ec8
-      env:
-        GITHUB_TOKEN: ${{ secrets.TOKEN }}  # Needed to get PR information
-        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}   # Generate a token on SonarQube, add it to the secrets of this repo with the name SONAR_TOKEN (Settings > Secrets > Actions > add new repository secret)
-        SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}   # add the URL of your instance to the secrets of this repo with the name SONAR_HOST_URL (Settings > Secrets > Actions > add new repository secret)
+
+    - name: Official SonarQube Scan
+      uses: SonarSource/sonarqube-scan-action@v4.0.0
       with:
-        args:
+        # Additional arguments to the sonar-scanner
+        args: # optional
           -Dsonar.projectKey=account
           -Dsonar.sources=src
+        projectBaseDir: # optional
+        scannerVersion: # optional, default is 6.2.1.4610
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information
+        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}   # Generate a token on SonarQube, add it to the secrets of this repo with the name SONAR_TOKEN (Settings > Secrets > Actions > add new repository secret)
+        SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}   # add the URL of your instance to the secrets of this repo with the name SONAR_HOST_URL (Settings > Secrets > Actions > add new repository secret)
+
     - name: Kubectl tool installer
       uses: Azure/setup-kubectl@v4.0.0
       with:
