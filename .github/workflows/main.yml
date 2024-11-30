@@ -94,7 +94,8 @@ jobs:
       run: |
         git config --global user.name 'ghkimdev'
         git config --global user.email 'ghkim.dev@gmail.com'
-        git commit -am "update image in deployment.yaml"
+        git add .
+        git commit -m "update image in deployment.yaml"
         git push
 
 
