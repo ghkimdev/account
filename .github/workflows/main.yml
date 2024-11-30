@@ -80,7 +80,7 @@ jobs:
       with:
         output: 'account'
         image-ref: 'public.ecr.aws/k1j5h2w6/account:${{ github.ref_name }}'
-        format: 'table'
+        format: 'json'
         exit-code: '1'
         ignore-unfixed: true
         vuln-type: 'os,library'
