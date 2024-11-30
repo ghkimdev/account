@@ -41,8 +41,9 @@ jobs:
       with:
         # Additional arguments to the sonar-scanner
         args: # optional
-          -Dsonar.projectKey=account
-          -Dsonar.sources=src
+          -Dsonar.projectName=account
+          -Dsonar.projentKey=account
+          -Dsonar.java.binaries=target
         projectBaseDir: . # optional, default is .
       env:
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}   # Generate a token on SonarQube, add it to the secrets of this repo with the name SONAR_TOKEN (Settings > Secrets > Actions > add new repository secret)
@@ -89,13 +90,12 @@ jobs:
       with:
         # image reference(for backward compatibility)
         image-ref: $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
-        ignore-unfixed: true
         # comma-separated list of vulnerability types (os,library)
         vuln-type: os,library
         # severities of vulnerabilities to be displayed
         severity: HIGH,CRITICAL
         format: table
-        output: table.html
+        output: image.html
 
     - name: Update Image Tag Values
       run: |
