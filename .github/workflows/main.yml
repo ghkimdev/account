@@ -78,7 +78,7 @@ jobs:
     - name: Aqua Security Trivy
       uses: aquasecurity/trivy-action@0.29.0
       with:
-        output: 'image.html'
+        output: 'image'
         image-ref: 'public.ecr.aws/k1j5h2w6/account:${{ github.ref_name }}'
         format: 'table'
         exit-code: '1'
