@@ -5,6 +5,7 @@ name: build and push docker image to ECR
 
 on:
   push:
+    branch: main
     tags:
       - 'v*'
 
