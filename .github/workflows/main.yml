@@ -8,11 +8,6 @@ on:
     tags:
       - 'v*'
 
-env:
-  ECR_REGISTRY: public.ecr.aws/k1j5h2w6
-  ECR_REPOSITORY: account
-  IMAGE_TAG: ${{ github.ref_name }}
-
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -22,6 +17,10 @@ jobs:
     strategy:
       matrix:
         java: [ '17' ]
+    env:
+      ECR_REGISTRY: public.ecr.aws/k1j5h2w6
+      ECR_REPOSITORY: account
+      IMAGE_TAG: ${{ github.ref_name }}
 
     steps:
     - name: Check out code
