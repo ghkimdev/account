@@ -78,14 +78,17 @@ jobs:
     - name: Aqua Security Trivy
       uses: aquasecurity/trivy-action@0.29.0
       with:
-        output: 'account'
         image-ref: 'public.ecr.aws/k1j5h2w6/account:${{ github.ref_name }}'
-        format: 'json'
-        exit-code: '1'
-        ignore-unfixed: true
-        vuln-type: 'os,library'
+        format: 'template'
+        template: '@/contrib/sarif.tpl'
+        output: 'trivy-results.sarif'
         severity: 'CRITICAL,HIGH'
 
+    - name: Upload Trivy scan results to GitHub Security tab
+      uses: github/codeql-action/upload-sarif@v3
+      with:
+        sarif_file: 'trivy-results.sarif'
+   
     - name: Update Image Tag Values
       run: |
         sed -i "s/^    tag: .*/    tag: ${IMAGE_TAG}/" k8s/deployment.yaml
