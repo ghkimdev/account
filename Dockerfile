@@ -1,4 +1,5 @@
-FROM eclipse-temurin:17-jdk-alpine
+FROM eclipse-temurin:17-noble
+
     
 EXPOSE 8080
  
